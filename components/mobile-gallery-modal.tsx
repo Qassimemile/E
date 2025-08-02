@@ -59,12 +59,16 @@ export function MobileGalleryModal({
 
   // Navigation functions
   const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + artworks.length) % artworks.length)
-  }, [artworks.length])
+    const newIndex = (currentIndex - 1 + artworks.length) % artworks.length
+    setCurrentIndex(newIndex)
+    onIndexChange?.(newIndex)
+  }, [artworks.length, currentIndex, onIndexChange])
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % artworks.length)
-  }, [artworks.length])
+    const newIndex = (currentIndex + 1) % artworks.length
+    setCurrentIndex(newIndex)
+    onIndexChange?.(newIndex)
+  }, [artworks.length, currentIndex, onIndexChange])
 
   // Zoom functions
   const zoomIn = () => {
