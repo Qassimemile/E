@@ -11,6 +11,8 @@ import { OrientationNotice } from "./orientation-notice" // Import and add the O
 import { AboutModal } from "./about-modal"
 import { PricingModal } from "./pricing-modal"
 import { ContactModal } from "./contact-modal"
+import { MobileGalleryModal } from "./mobile-gallery-modal"
+import { useMobileDetection } from "@/hooks/use-mobile-detection"
 
 export function Portfolio() {
   const { t, isLoaded, language } = useLanguage()
@@ -18,6 +20,8 @@ export function Portfolio() {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [pricingOpen, setPricingOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
+  const [mobileGalleryOpen, setMobileGalleryOpen] = useState(false)
+  const { isMobile } = useMobileDetection()
 
   // Auto-rotate artwork every 30 seconds
   useEffect(() => {
@@ -143,7 +147,16 @@ export function Portfolio() {
             {artworks.map((artwork, index) => (
               <button
                 key={artwork.id}
-                onClick={() => setCurrentArtworkIndex(index)}
+                onClick={() => {
+                  if (isMobile) {
+                    // On mobile: open fullscreen gallery
+                    setCurrentArtworkIndex(index)
+                    setMobileGalleryOpen(true)
+                  } else {
+                    // On desktop/tablet: just change background
+                    setCurrentArtworkIndex(index)
+                  }
+                }}
                 className={`flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-110 ${
                   index === currentArtworkIndex
                     ? "border-white shadow-lg shadow-white/25"
@@ -165,6 +178,15 @@ export function Portfolio() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Gallery Modal */}
+      <MobileGalleryModal
+        isOpen={mobileGalleryOpen}
+        onClose={() => setMobileGalleryOpen(false)}
+        artworks={artworks}
+        initialIndex={currentArtworkIndex}
+        onIndexChange={(index) => setCurrentArtworkIndex(index)}
+      />
 
       {/* Modals */}
       <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
