@@ -46,16 +46,16 @@ export function Portfolio() {
       {/* Image Preloader */}
       <ImagePreloader images={artworks.map(artwork => artwork.image)} />
       
-      {/* Background Image - Enhanced Mobile Responsive */}
+      {/* Background Image - Fixed Mobile Cropping Issue */}
       <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
-        <picture className="w-full h-full">
+        <picture className="w-full h-full block">
           <source 
             media="(max-width: 480px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_480,q_auto,f_auto/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_480,q_auto,f_auto,c_fill,ar_9:16/')}`}
           />
           <source 
             media="(max-width: 768px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_768,q_auto,f_auto/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_768,q_auto,f_auto,c_fill,ar_9:16/')}`}
           />
           <source 
             media="(max-width: 1024px)" 
@@ -72,7 +72,9 @@ export function Portfolio() {
             loading="lazy"
             style={{
               minHeight: '100vh',
-              minHeight: '100dvh'
+              minHeight: '100dvh',
+              objectFit: 'cover',
+              objectPosition: 'center'
             }}
           />
         </picture>
