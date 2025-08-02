@@ -5,6 +5,7 @@ import { artworks } from "@/data/artworks"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSelector } from "./language-selector"
 import { ImagePreloader } from "./image-preloader"
+import { OrientationNotice } from "./orientation-notice" // Import and add the OrientationNotice component
 // import { LanguageSelectorAdvanced } from "./language-selector-advanced" // Alternative version
 // import { LanguageSelectorMobile } from "./language-selector-mobile" // Mobile-optimized version
 import { AboutModal } from "./about-modal"
@@ -43,37 +44,40 @@ export function Portfolio() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Add the orientation notice */}
+      <OrientationNotice />
+
       {/* Image Preloader */}
-      <ImagePreloader images={artworks.map(artwork => artwork.image)} />
-      
+      <ImagePreloader images={artworks.map((artwork) => artwork.image)} />
+
       {/* Background Image - High Quality Responsive */}
       <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
         <picture className="w-full h-full block">
-          <source 
-            media="(max-width: 480px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_480,q_90,f_auto/')}`}
+          <source
+            media="(max-width: 480px)"
+            srcSet={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_480,q_90,f_auto/")}`}
           />
-          <source 
-            media="(max-width: 768px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_768,q_90,f_auto/')}`}
+          <source
+            media="(max-width: 768px)"
+            srcSet={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_768,q_90,f_auto/")}`}
           />
-          <source 
-            media="(max-width: 1024px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1024,q_90,f_auto/')}`}
+          <source
+            media="(max-width: 1024px)"
+            srcSet={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1024,q_90,f_auto/")}`}
           />
-          <source 
-            media="(max-width: 1200px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1200,q_90,f_auto/')}`}
+          <source
+            media="(max-width: 1200px)"
+            srcSet={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1200,q_90,f_auto/")}`}
           />
           <img
-            src={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1920,q_90,f_auto/')}`}
+            src={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1920,q_90,f_auto/")}`}
             alt={currentArtwork.title}
             className="w-full h-full object-cover object-center"
             loading="lazy"
             sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1200px) 1200px, 1920px"
             style={{
-              minHeight: '100vh',
-              minHeight: '100dvh'
+              minHeight: "100vh",
+              minHeight: "100dvh",
             }}
           />
         </picture>

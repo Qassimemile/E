@@ -57,6 +57,10 @@ const translations = {
     english: "English",
     arabic: "عربي",
     hebrew: "עברית",
+
+    // Orientation Notice
+    rotateForBetter: "Rotate your device for a better view",
+    landscapeRecommended: "Landscape mode recommended",
   },
   ar: {
     // Navigation
@@ -101,6 +105,10 @@ const translations = {
     english: "English",
     arabic: "عربي",
     hebrew: "עברית",
+
+    // Orientation Notice
+    rotateForBetter: "قم بتدوير جهازك للحصول على عرض أفضل",
+    landscapeRecommended: "يُنصح بالوضع الأفقي",
   },
   he: {
     // Navigation
@@ -145,6 +153,10 @@ const translations = {
     english: "English",
     arabic: "עربי",
     hebrew: "עברית",
+
+    // Orientation Notice
+    rotateForBetter: "סובב את המכשיר לתצוגה טובה יותר",
+    landscapeRecommended: "מומלץ מצב לרוחב",
   },
 }
 
