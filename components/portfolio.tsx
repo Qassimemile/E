@@ -46,35 +46,34 @@ export function Portfolio() {
       {/* Image Preloader */}
       <ImagePreloader images={artworks.map(artwork => artwork.image)} />
       
-      {/* Background Image - Fixed Mobile Cropping Issue */}
+      {/* Background Image - High Quality Responsive */}
       <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
         <picture className="w-full h-full block">
           <source 
             media="(max-width: 480px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_480,q_auto,f_auto,c_fill,ar_9:16/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_480,q_90,f_auto/')}`}
           />
           <source 
             media="(max-width: 768px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_768,q_auto,f_auto,c_fill,ar_9:16/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_768,q_90,f_auto/')}`}
           />
           <source 
             media="(max-width: 1024px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1024,q_auto,f_auto/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1024,q_90,f_auto/')}`}
           />
           <source 
             media="(max-width: 1200px)" 
-            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1200,q_auto,f_auto/')}`}
+            srcSet={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1200,q_90,f_auto/')}`}
           />
           <img
-            src={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1920,q_auto,f_auto/')}`}
+            src={`${currentArtwork.image.replace('/upload/', '/upload/c_scale,w_1920,q_90,f_auto/')}`}
             alt={currentArtwork.title}
             className="w-full h-full object-cover object-center"
             loading="lazy"
+            sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1200px) 1200px, 1920px"
             style={{
               minHeight: '100vh',
-              minHeight: '100dvh',
-              objectFit: 'cover',
-              objectPosition: 'center'
+              minHeight: '100dvh'
             }}
           />
         </picture>

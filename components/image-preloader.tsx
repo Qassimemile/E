@@ -10,28 +10,28 @@ export function ImagePreloader({ images }: ImagePreloaderProps) {
   useEffect(() => {
     const preloadImages = () => {
       images.forEach((src) => {
-        // Preload different sizes for responsive images with enhanced mobile support
+        // Preload high quality images for responsive display
         const sizes = [
-          src.replace('/upload/', '/upload/c_scale,w_480,q_auto,f_auto/'), // Extra small mobile
-          src.replace('/upload/', '/upload/c_scale,w_768,q_auto,f_auto/'), // Mobile
-          src.replace('/upload/', '/upload/c_scale,w_1024,q_auto,f_auto/'), // Tablet
-          src.replace('/upload/', '/upload/c_scale,w_1200,q_auto,f_auto/'), // Small desktop
-          src.replace('/upload/', '/upload/c_scale,w_1920,q_auto,f_auto/')  // Large desktop
+          src.replace('/upload/', '/upload/c_scale,w_480,q_90,f_auto/'), // Mobile high quality
+          src.replace('/upload/', '/upload/c_scale,w_768,q_90,f_auto/'), // Mobile large high quality
+          src.replace('/upload/', '/upload/c_scale,w_1024,q_90,f_auto/'), // Tablet high quality
+          src.replace('/upload/', '/upload/c_scale,w_1200,q_90,f_auto/'), // Small desktop high quality
+          src.replace('/upload/', '/upload/c_scale,w_1920,q_90,f_auto/')  // Large desktop high quality
         ]
         
-        sizes.forEach((sizeSrc) => {
+        sizes.forEach((sizeSrc, index) => {
           const img = new Image()
           img.src = sizeSrc
-          // Add loading priority for mobile sizes
-          if (sizeSrc.includes('w_480') || sizeSrc.includes('w_768')) {
+          // Prioritize mobile sizes for faster loading
+          if (index < 2) {
             img.loading = 'eager'
           }
         })
       })
     }
 
-    // Preload images after a short delay to not block initial render
-    const timer = setTimeout(preloadImages, 500) // Reduced delay for faster mobile loading
+    // Preload images with optimized timing
+    const timer = setTimeout(preloadImages, 300)
     return () => clearTimeout(timer)
   }, [images])
 
