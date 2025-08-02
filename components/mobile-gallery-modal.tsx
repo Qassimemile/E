@@ -186,7 +186,7 @@ export function MobileGalleryModal({
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen, goToPrevious, goToNext, onClose])
+  }, [isOpen, goToPrevious, goToNext, onClose, zoomOut])
 
   if (!isOpen) return null
 

@@ -148,14 +148,9 @@ export function Portfolio() {
               <button
                 key={artwork.id}
                 onClick={() => {
-                  if (isMobile) {
-                    // On mobile: open fullscreen gallery
-                    setCurrentArtworkIndex(index)
-                    setMobileGalleryOpen(true)
-                  } else {
-                    // On desktop/tablet: just change background
-                    setCurrentArtworkIndex(index)
-                  }
+                  setCurrentArtworkIndex(index)
+                  // Open gallery in both mobile and desktop
+                  setMobileGalleryOpen(true)
                 }}
                 className={`flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-110 ${
                   index === currentArtworkIndex
