@@ -292,7 +292,6 @@ export function MobileGalleryModal({
       {/* Bottom info panel */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
         <div className="text-center">
-          <h3 className="text-white font-semibold text-lg mb-1">{currentArtwork.title}</h3>
           <p className="text-white/70 text-sm">Swipe left/right to navigate • Pinch to zoom • Tap controls to zoom</p>
         </div>
       </div>
