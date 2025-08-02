@@ -15,8 +15,8 @@ export const artworks: Artwork[] = [
   {
     id: 2,
     title: "Mystical Forest",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469456/8745631_uweivk.png",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469456/8745631_uweivk.png",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1754128495/01754128449496_vra48u.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1754128495/01754128449496_vra48u.png",
   },
   {
     id: 3,
@@ -27,8 +27,8 @@ export const artworks: Artwork[] = [
   {
     id: 4,
     title: "Ancient Warrior",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469457/85210_srkwls.png",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469457/85210_srkwls.png",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1754126185/81749914035127_chehzk.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1754126185/81749914035127_chehzk.png",
   },
   {
     id: 5,
@@ -45,8 +45,8 @@ export const artworks: Artwork[] = [
   {
     id: 7,
     title: "Phoenix Rising",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469457/5265_kn7v9a.png",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469457/5265_kn7v9a.png",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469458/piclumen-1751038877631_pv6db9.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469458/piclumen-1751038877631_pv6db9.png",
   },
   {
     id: 8,
@@ -93,8 +93,8 @@ export const artworks: Artwork[] = [
   {
     id: 15,
     title: "Alien Planet",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469465/000000055555666665555_y2jyqa.jpg",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469465/000000055555666665555_y2jyqa.jpg",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1754129434/51754129412524_qeehox.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1754129434/51754129412524_qeehox.png",
   },
   {
     id: 16,
@@ -105,14 +105,14 @@ export const artworks: Artwork[] = [
   {
     id: 17,
     title: "Desert Temple",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753470134/piclumen-1750519620417_rdjqxk.png",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753470134/piclumen-1750519620417_rdjqxk.png",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753470725/98417_ms3caf.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753470725/98417_ms3caf.png",
   },
   {
     id: 18,
     title: "Lightning Mage",
-    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1753469465/96385125_xzt17t.jpg",
-    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1753469465/96385125_xzt17t.jpg",
+    image: "https://res.cloudinary.com/djd0fttnt/image/upload/v1754130131/71754130090966_vv8ri3.png",
+    thumbnail: "https://res.cloudinary.com/djd0fttnt/image/upload/c_scale,w_100/v1754130131/71754130090966_vv8ri3.png",
   },
   {
     id: 19,
