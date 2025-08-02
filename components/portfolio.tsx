@@ -23,11 +23,11 @@ export function Portfolio() {
   const [mobileGalleryOpen, setMobileGalleryOpen] = useState(false)
   const { isMobile } = useMobileDetection()
 
-  // Auto-rotate artwork every 30 seconds
+  // Auto-rotate artwork every 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentArtworkIndex((prev) => (prev + 1) % artworks.length)
-    }, 30000)
+    }, 10000)
 
     return () => clearInterval(interval)
   }, [])
@@ -55,7 +55,7 @@ export function Portfolio() {
       <ImagePreloader images={artworks.map((artwork) => artwork.image)} />
 
       {/* Background Image - High Quality Responsive */}
-      <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
+      <div className="absolute inset-0 transition-opacity duration-1000 ease-in-out">
         <picture className="w-full h-full block">
           <source
             media="(max-width: 480px)"
@@ -76,17 +76,25 @@ export function Portfolio() {
           <img
             src={`${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1920,q_90,f_auto/")}`}
             alt={currentArtwork.title}
-            className="w-full h-full object-cover object-center"
-            loading="lazy"
+            className="w-full h-full object-cover object-center animate-fade-in"
+            loading="eager" 
             sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, (max-width: 1200px) 1200px, 1920px"
             style={{
               minHeight: "100vh",
               minHeight: "100dvh",
+              animation: "fadeIn 0.8s ease-in-out"
             }}
           />
         </picture>
         <div className="absolute inset-0 bg-black/40" />
       </div>
+      
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
 
       {/* Navigation - Mobile Optimized */}
       <nav className="relative z-10 flex justify-between items-center p-3 sm:p-6">
