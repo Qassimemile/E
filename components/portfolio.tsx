@@ -57,10 +57,12 @@ export function Portfolio() {
       {/* Preload Images */}
       <ImagePreloader images={artworks.map((artwork) => artwork.image)} />
 
-      {/* Background Image */}
-      <div className="absolute inset-0 transition-opacity duration-1000 ease-in-out">
-        {/* Force React to remount on index change by keying the <picture> */}
-        <picture key={currentArtworkIndex} className="w-full h-full block">
+      {/* Background Image Wrapper keyed for remount */}
+      <div
+        key={currentArtworkIndex}
+        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+      >
+        <picture className="w-full h-full block">
           <source
             media="(max-width: 480px)"
             srcSet={currentArtwork.image.replace(
