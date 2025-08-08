@@ -5,7 +5,7 @@ import { artworks } from "@/data/artworks"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSelector } from "./language-selector"
 import { ImagePreloader } from "./image-preloader"
-import { OrientationNotice } from "./orientation-notice" // Import and add the OrientationNotice component
+// import { OrientationNotice } from "./orientation-notice" // تم تعليق الاستيراد لأنه غير مستخدم حالياً
 // import { LanguageSelectorAdvanced } from "./language-selector-advanced" // Alternative version
 // import { LanguageSelectorMobile } from "./language-selector-mobile" // Mobile-optimized version
 import { AboutModal } from "./about-modal"
@@ -27,10 +27,8 @@ export function Portfolio() {
 
   // Auto-rotate artwork every 10 seconds, only after hydration is complete
   useEffect(() => {
-    // Only start auto-rotation after page is fully loaded
     if (!isLoaded) return;
     
-    console.log("Starting auto-rotation timer");
     const interval = setInterval(() => {
       if (!isTransitioning) {
         setPreviousArtworkIndex(currentArtworkIndex);
@@ -38,19 +36,16 @@ export function Portfolio() {
         
         setCurrentArtworkIndex((prev) => {
           const newIndex = (prev + 1) % artworks.length;
-          console.log(`Auto-rotating: changing from index ${prev} to ${newIndex}`);
           return newIndex;
         });
         
-        // Reset transition state after animation completes
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 1000); // Match duration with the CSS transition
+        }, 1000);
       }
     }, 10000);
 
     return () => {
-      console.log("Clearing auto-rotation timer");
       clearInterval(interval);
     };
   }, [isLoaded, currentArtworkIndex, isTransitioning]);
@@ -58,7 +53,6 @@ export function Portfolio() {
   const currentArtwork = artworks[currentArtworkIndex]
   const previousArtwork = artworks[previousArtworkIndex]
 
-  // Loading screen during hydration
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
@@ -72,13 +66,10 @@ export function Portfolio() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Add the orientation notice */}
-      <OrientationNotice />
+      {/* <OrientationNotice /> */} {/* تعليق لإخفاء التنبيه */}
 
-      {/* Image Preloader */}
       <ImagePreloader images={artworks.map((artwork) => artwork.image)} />
 
-      {/* Previous Background Image - Will fade out */}
       {isTransitioning && (
         <div 
           className="absolute inset-0 z-10 transition-opacity duration-1000 ease-in-out opacity-0"
@@ -120,7 +111,6 @@ export function Portfolio() {
         </div>
       )}
 
-      {/* Current Background Image - Will fade in */}
       <div 
         className={`absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
         key={`bg-container-current-${currentArtworkIndex}`}
@@ -169,7 +159,6 @@ export function Portfolio() {
         }
       `}</style>
 
-      {/* Navigation - Mobile Optimized */}
       <nav className="relative z-20 flex justify-between items-center p-3 sm:p-6">
         <div className="flex-1" />
         <div className="flex items-center gap-2 sm:gap-6">
@@ -192,18 +181,15 @@ export function Portfolio() {
             {t("contact")}
           </button>
 
-          {/* Language Selector - Responsive */}
           <div className="hidden sm:block">
             <LanguageSelector />
           </div>
           <div className="block sm:hidden">
-            {/* <LanguageSelectorMobile /> */}
             <LanguageSelector />
           </div>
         </div>
       </nav>
 
-      {/* Hero Content - Mobile Optimized */}
       <div className="relative z-20 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-4 sm:px-6 pb-20 sm:pb-24">
         <div className="text-center">
           <h1
@@ -221,7 +207,6 @@ export function Portfolio() {
         </div>
       </div>
 
-      {/* Fixed Thumbnail Strip at Bottom - Mobile Optimized */}
       <div className="fixed bottom-0 left-0 right-0 z-20 flex justify-center p-2 sm:p-4">
         <div className="p-2 sm:p-4 bg-black/20 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10">
           <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide max-w-xs sm:max-w-4xl">
@@ -231,7 +216,6 @@ export function Portfolio() {
                 onClick={() => {
                   setPreviousArtworkIndex(currentArtworkIndex);
                   setCurrentArtworkIndex(index);
-                  // Open gallery in both mobile and desktop
                   setMobileGalleryOpen(true);
                 }}
                 className={`flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-110 ${
@@ -256,7 +240,6 @@ export function Portfolio() {
         </div>
       </div>
 
-      {/* Mobile Gallery Modal */}
       <MobileGalleryModal
         isOpen={mobileGalleryOpen}
         onClose={() => setMobileGalleryOpen(false)}
@@ -265,7 +248,6 @@ export function Portfolio() {
         onIndexChange={(index) => setCurrentArtworkIndex(index)}
       />
 
-      {/* Modals */}
       <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
       <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
