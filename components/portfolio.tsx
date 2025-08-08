@@ -1,4 +1,3 @@
-```tsx
 "use client"
 
 import { useState, useEffect } from "react"
@@ -27,25 +26,27 @@ export function Portfolio() {
     return <div>Loading...</div>
   }
 
+  // Background-div approach (no stacking <img> tags)
+  const bgUrl = currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1920,q_95,f_auto/")
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Only one picture element, keyed by index to remount cleanly */}
-      <picture key={currentArtworkIndex} className="absolute inset-0 w-full h-full">
-        <source media="(max-width: 768px)" srcSet={currentArtwork.image.replace("/upload/", "/upload/c_scale,w_768,q_90,f_auto/")} />
-        <img
-          src={currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1920,q_90,f_auto/")}
-          alt={currentArtwork.title}
-          className="w-full h-full object-cover transition-opacity duration-1000 opacity-0 animate-fade-in"
-          onAnimationEnd={(e) => (e.currentTarget.style.opacity = "1")}
-        />
-      </picture>
+      {/* Single background element keyed to force remount on index change */}
+      <div
+        key={currentArtworkIndex}
+        className="absolute inset-0 bg-center bg-cover bg-no-repeat transition-opacity duration-700"
+        style={{
+          backgroundImage: `url(${bgUrl})`,
+          willChange: "opacity, background-image",
+        }}
+      />
 
       {/* Preload high-res images */}
       <ImagePreloader images={artworks.map((a) => a.image)} />
 
       {/* Mobile gallery modal trigger */}
       <button
-        className="absolute bottom-4 right-4 p-2 bg-white/20 rounded-full"
+        className="absolute bottom-4 right-4 p-2 bg-white/20 rounded-full z-40"
         onClick={() => setMobileGalleryOpen(true)}
       >
         Open Gallery
@@ -58,14 +59,6 @@ export function Portfolio() {
         initialIndex={currentArtworkIndex}
         onIndexChange={setCurrentArtworkIndex}
       />
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0 }
-          to { opacity: 1 }
-        }
-      `}</style>
     </div>
   )
 }
-```
