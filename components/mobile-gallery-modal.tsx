@@ -36,6 +36,7 @@ export function MobileGalleryModal({
   const containerRef = useRef<HTMLDivElement>(null)
   const { t } = useLanguage()
 
+  // Reset state when modal opens/closes or index changes
   useEffect(() => {
     if (isOpen) {
       setScale(1)
@@ -51,10 +52,12 @@ export function MobileGalleryModal({
     }
   }, [isOpen, currentIndex])
 
+  // Update parent component when index changes
   useEffect(() => {
     onIndexChange?.(currentIndex)
   }, [currentIndex, onIndexChange])
 
+  // Navigation functions
   const goToPrevious = useCallback(() => {
     const newIndex = (currentIndex - 1 + artworks.length) % artworks.length
     setCurrentIndex(newIndex)
@@ -67,6 +70,7 @@ export function MobileGalleryModal({
     onIndexChange?.(newIndex)
   }, [artworks.length, currentIndex, onIndexChange])
 
+  // Zoom functions
   const zoomIn = () => {
     setScale((prev) => Math.min(prev * 1.5, 4))
   }
@@ -83,15 +87,15 @@ export function MobileGalleryModal({
     setPosition({ x: 0, y: 0 })
   }
 
+  // Touch distance calculation
   const getTouchDistance = (touches: TouchList) => {
     if (touches.length < 2) return 0
     const touch1 = touches[0]
     const touch2 = touches[1]
-    return Math.sqrt(
-      Math.pow(touch2.clientX - touch1.clientX, 2) + Math.pow(touch2.clientY - touch1.clientY, 2)
-    )
+    return Math.sqrt(Math.pow(touch2.clientX - touch1.clientX, 2) + Math.pow(touch2.clientY - touch1.clientY, 2))
   }
 
+  // Touch event handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 1) {
       setTouchStart({ x: e.touches[0].clientX, y: e.touches[0].clientY })
@@ -108,6 +112,7 @@ export function MobileGalleryModal({
     e.preventDefault()
 
     if (e.touches.length === 2) {
+      // Pinch to zoom
       const distance = getTouchDistance(e.touches)
       if (initialPinchDistance > 0) {
         const scaleChange = distance / initialPinchDistance
@@ -115,6 +120,7 @@ export function MobileGalleryModal({
         setScale(newScale)
       }
     } else if (e.touches.length === 1 && isDragging) {
+      // Pan when zoomed
       if (scale > 1) {
         const deltaX = e.touches[0].clientX - touchStart.x
         const deltaY = e.touches[0].clientY - touchStart.y
@@ -132,10 +138,12 @@ export function MobileGalleryModal({
       setIsDragging(false)
       setInitialPinchDistance(0)
 
+      // Handle swipe navigation (only when not zoomed)
       if (scale === 1 && Math.abs(position.x) < 50 && Math.abs(position.y) < 50) {
         const deltaX = e.changedTouches[0].clientX - touchStart.x
         const deltaY = Math.abs(e.changedTouches[0].clientY - touchStart.y)
 
+        // Horizontal swipe (and not too much vertical movement)
         if (Math.abs(deltaX) > 50 && deltaY < 100) {
           if (deltaX > 0) {
             goToPrevious()
@@ -145,12 +153,14 @@ export function MobileGalleryModal({
         }
       }
 
+      // Reset position if not significantly moved
       if (scale === 1) {
         setPosition({ x: 0, y: 0 })
       }
     }
   }
 
+  // Keyboard navigation
   useEffect(() => {
     if (!isOpen) return
 
@@ -244,7 +254,7 @@ export function MobileGalleryModal({
         <div
           className="relative transition-transform duration-200 ease-out"
           style={{
-            transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
+            transform: scale(${scale}) translate(${position.x}px, ${position.y}px),
             transformOrigin: "center center",
           }}
         >
@@ -255,16 +265,10 @@ export function MobileGalleryModal({
             </div>
           )}
 
-          {/* High-quality image with srcSet */}
+          {/* High-quality image */}
           <img
             ref={imageRef}
-            src={currentArtwork.image.replace("/upload/", "/upload/c_scale,w_768,q_95,f_auto/")}
-            srcSet={`
-              ${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_600,q_90,f_auto/")} 600w,
-              ${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_900,q_90,f_auto/")} 900w,
-              ${currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1200,q_95,f_auto/")} 1200w
-            `}
-            sizes="(max-width: 768px) 600px, (max-width: 1200px) 900px, 1200px"
+            src={currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1200,q_95,f_auto/") || "/placeholder.svg"}
             alt={currentArtwork.title}
             className="max-w-[90vw] max-h-[80vh] object-contain"
             onLoad={() => setIsLoading(false)}
@@ -303,9 +307,9 @@ export function MobileGalleryModal({
             <button
               key={artwork.id}
               onClick={() => setCurrentIndex(index)}
-              className={`flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+              className={flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
                 index === currentIndex ? "border-white shadow-lg" : "border-white/30 hover:border-white/60"
-              }`}
+              }}
             >
               <img
                 src={artwork.thumbnail || "/placeholder.svg"}
