@@ -43,12 +43,15 @@ export function MobileGalleryModal({
       setPosition({ x: 0, y: 0 })
       setIsLoading(true)
       document.body.style.overflow = "hidden"
+      console.log("MobileGalleryModal opened, displaying artwork index:", currentIndex);
     } else {
       document.body.style.overflow = "unset"
+      console.log("MobileGalleryModal closed");
     }
 
     return () => {
       document.body.style.overflow = "unset"
+      console.log("MobileGalleryModal cleanup");
     }
   }, [isOpen, currentIndex])
 
@@ -71,21 +74,21 @@ export function MobileGalleryModal({
   }, [artworks.length, currentIndex, onIndexChange])
 
   // Zoom functions
-  const zoomIn = () => {
+  const zoomIn = useCallback(() => {
     setScale((prev) => Math.min(prev * 1.5, 4))
-  }
+  }, [])
 
-  const zoomOut = () => {
+  const zoomOut = useCallback(() => {
     setScale((prev) => Math.max(prev / 1.5, 1))
     if (scale <= 1.5) {
       setPosition({ x: 0, y: 0 })
     }
-  }
+  }, [scale])
 
-  const resetZoom = () => {
+  const resetZoom = useCallback(() => {
     setScale(1)
     setPosition({ x: 0, y: 0 })
-  }
+  }, [])
 
   // Touch distance calculation
   const getTouchDistance = (touches: TouchList) => {
@@ -190,7 +193,7 @@ export function MobileGalleryModal({
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen, goToPrevious, goToNext, onClose, zoomOut])
+  }, [isOpen, goToPrevious, goToNext, onClose, zoomIn, zoomOut, resetZoom])
 
   if (!isOpen) return null
 
@@ -254,7 +257,7 @@ export function MobileGalleryModal({
         <div
           className="relative transition-transform duration-200 ease-out"
           style={{
-            transform: scale(${scale}) translate(${position.x}px, ${position.y}px),
+            transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
             transformOrigin: "center center",
           }}
         >
@@ -265,10 +268,10 @@ export function MobileGalleryModal({
             </div>
           )}
 
-          {/* High-quality image */}
+          {/* High-quality image with improved quality params */}
           <img
             ref={imageRef}
-            src={currentArtwork.image.replace("/upload/", "/upload/c_scale,w_1200,q_95,f_auto/") || "/placeholder.svg"}
+            src={currentArtwork.image.replace("/upload/", "/upload/q_95,f_auto/") || "/placeholder.svg"}
             alt={currentArtwork.title}
             className="max-w-[90vw] max-h-[80vh] object-contain"
             onLoad={() => setIsLoading(false)}
@@ -307,9 +310,9 @@ export function MobileGalleryModal({
             <button
               key={artwork.id}
               onClick={() => setCurrentIndex(index)}
-              className={flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
                 index === currentIndex ? "border-white shadow-lg" : "border-white/30 hover:border-white/60"
-              }}
+              }`}
             >
               <img
                 src={artwork.thumbnail || "/placeholder.svg"}
