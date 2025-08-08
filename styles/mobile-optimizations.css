@@ -185,3 +185,54 @@ picture img {
     overflow-x: hidden;
   }
 }
+
+
+/* Orientation-specific optimizations */
+.landscape-mode {
+  /* Landscape mode specific styles */
+}
+
+.portrait-mode {
+  /* Portrait mode specific styles */
+}
+
+/* Landscape mode optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .landscape-mode .text-center h1 {
+    font-size: 2.5rem;
+  }
+  
+  .landscape-mode .text-center p {
+    font-size: 1rem;
+    max-width: 28rem;
+  }
+  
+  /* Ensure thumbnails are visible in landscape */
+  .landscape-mode .fixed.bottom-4 {
+    bottom: 1rem;
+  }
+}
+
+/* Portrait mode optimizations */
+@media (max-width: 768px) and (orientation: portrait) {
+  .portrait-mode .text-center h1 {
+    font-size: 3rem;
+  }
+  
+  .portrait-mode .text-center p {
+    font-size: 1.25rem;
+    max-width: 32rem;
+  }
+}
+
+/* Orientation indicator styling */
+.fixed.top-4.right-4 {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: white;
+  z-index: 50;
+}
+
